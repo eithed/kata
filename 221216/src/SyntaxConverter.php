@@ -24,13 +24,13 @@ class SyntaxConverter
         $this->translationTable = $this->generateTranslationTable();
     }
 
-    protected function generateTranslationTable()
+    protected function generateTranslationTable() : array
     {
         return array_reverse(array_merge(...array_map(
-            fn($number, $group) => 
+            fn(int $number, string $group) => 
                 ($split = str_split($group)) ?
                 array_map(
-                    fn($index, $letter) =>
+                    fn(int $index, string $letter) =>
                         ['regex' => sprintf('/%s{%s}/', $number, $index + 1), 'value' => $letter]
                     ,array_keys($split), $split
                 ) : [],
